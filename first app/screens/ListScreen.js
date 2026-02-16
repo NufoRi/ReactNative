@@ -1,33 +1,60 @@
-import React from "react";
-import {Text, StyleSheet, View, FlatList} from "react-native";
+import { React } from "react";
+import {
+  Text,
+  StyleSheet,
+  View,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 
 const students = [
-    { id : 0, name : "Alek", surname: "Novaković", age: 17},
-    { id : 1, name : "Anida", surname: "Veledar", age: 17},
-    { id : 2, name : "Danin", surname: "Zulfić", age: 17},
-    { id : 3, name : "Marko", surname: "Forcan", age: 17},
+  { name: "Alek", surname: "Novakovic", age: 17 },
+  { name: "Anida", surname: "Veledar", age: 17 },
+  { name: "Danin", surname: "Zulfic", age: 17 },
+  { name: "Marko", surname: "Forcan", age: 17 },
 ];
 
-const ListScreen = () => {
-    return (
-        <View>
-            <Text>ListScreen</Text>
-            <FlatList
-                data={students}
-                renderItem={({ item }) => {
-                    return (
-                        <Text>
-                            {item.name} {item.surname} - {item.age}
-                        </Text>
-                    );
-                }}
-                horizontal = {true}
-                showsHorizontalScrollIndicator = {false}
-            />
-        </View>
-    ) 
-}
+const ListScreen = (props) => {
+  return (
+    <View>
+      <Text>ListScreen</Text>
+      <FlatList
+        keyExtractor={(students) => students.name}
+        data={students}
+        renderItem={({ item }) => {
+          return (
+            <Text>
+              {item.name} {item.surname} - {item.age}
+            </Text>
+          );
+        }}
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+      />
+      <TouchableOpacity
+        style={styles.touchableButton}
+        onPress={() => props.navigation.goBack()}
+      >
+        <Text style={styles.buttonText}>Go to back</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  touchableButton: {
+    backgroundColor: "purple",
+    marginVertical: 15,
+    paddingVertical: 10,
+    borderRadius: 6,
+    marginHorizontal: 30,
+  },
+  buttonText: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+});
 
 export default ListScreen;
